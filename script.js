@@ -1,55 +1,300 @@
-// Kengaytirilgan bilimlar bazasi
-const knowledgeBase = {
-    parrandalar: {
-        "oziqlanishdagi muammo": { title: "🐔 Parranda oziqlanishi", advice: "To‘liq ratsionli ozuva, vitamin-mineral premikslar qo‘shing. Haftada bir marta probiotik bering.", howTo: "1. Boshlang‘ich ozuva (0-4 hafta)\n2. O‘sish ozuvasi (4-16 hafta)\n3. Tuxum qilish davri uchun maxsus ozuva", expertContact: "Parrandachilik instituti: +998 71 200 55 11 | parranda.uz", svgType: "premium_chicken_feed" },
-        "O'sishda ortda qolish": { title: "📉 O'sish sustligi", advice: "Yorug‘lik rejimini 18 soatga yetkazing, ozuvada oqsil miqdorini 22% gacha oshiring.", howTo: "1. Qurt va parazitlarga qarshi dorilash\n2. A, D3, E vitaminlari kursi\n3. Har 2 kunda go‘sht-suyak uni qo‘shing", expertContact: "Vetservis: 1130 | +998 90 777 44 55", svgType: "premium_growth" },
-        "emlash": { title: "💉 Emlash kalendari", advice: "Nyukasl, infeksion bronxit, Gumboro kasalligiga qarshi majburiy emlash.", howTo: "1. 1-kun: (marix) vaktsina\n2. 14-kun: Nyukasl\n3. 28-kun: revaktsinatsiya", expertContact: "Vaktsinalar markazi: +998 78 150 88 99", svgType: "premium_vaccine" }
+// ========== VILLAGER - 3 TILDA REAL AI ==========
+
+const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
+// ========== TIL MA'LUMOTLARI ==========
+const translations = {
+    uz: {
+        appTitle: "VILLAGER",
+        welcome: "Assalomu alaykum, fermer!",
+        animalQuestion: "Qaysi turdagi hayvon bilan muammoingiz bor?",
+        problemQuestion: "Muammo turi?",
+        detailedQuestion: "Muammoni aniq tasvirlang",
+        optionFeed: "🌾 Oziqlanish muammosi",
+        optionGrowth: "📉 O'sish sustligi",
+        optionVaccine: "💉 Emlash / kasalliklar",
+        next: "Davom etish",
+        back: "Ortga",
+        restart: "Yangi muammo",
+        loading: "🤖 AI tahlil qilmoqda...",
+        contact: "Expertlar bilan aloqa",
+        whatToDo: "Nima qilish kerak?",
+        howToDo: "Qanday qilinadi?",
+        home: "Bosh sahifa",
+        footer: "An'anaviy bilim va zamonaviy texnologiya",
+        variants: [
+            "🥚 Tuxum sifati yomonlashgan",
+            "🍂 Tuklari to'kilmoqda",
+            "🦠 Nafas olish qiyin",
+            "📉 Ishtaha yo'qolgan",
+            "🦵 Oyoqlarida shish",
+            "💩 Ich ketish",
+            "🧠 Asabiy alomatlar",
+            "🐛 Parazitlar / bit",
+            "🏠 Noto'g'ri parvarish",
+            "✍️ Boshqa (o‘zingiz yozing)"
+        ]
     },
-    qoramollar: {
-        "oziqlanishdagi muammo": { title: "🐄 Oziqlanish yetishmovchiligi", advice: "Sifatli silos, pichan va konsentratlar balansini tekshiring. Kunlik ratsionda 50-70 g tuz bering.", howTo: "1. Katta qoramol: 10-12 kg pichan\n2. 3-4 kg aralash ozuva\n3. Protein qo‘shimchalar", expertContact: "Qoramolchilar uyushmasi: +998 93 700 11 33", svgType: "premium_cow" },
-        "O'sishda ortda qolish": { title: "📊 Yosh qoramol o'smayapti", advice: "Parazitlarga qarshi dorilash va A, D, E vitaminlarini mushak ichiga yuborish kerak.", howTo: "1. Defixatsiya (har 45 kunda)\n2. Kuchaytirilgan energiya\n3. Alohida boqish", expertContact: "Chorva doktori: 1122", svgType: "premium_cow_growth" },
-        "emlash": { title: "🩺 Keng qamrovli emlash", advice: "Oyoq va og‘iz kasalligi, brusellyoz, leykozga qarshi emlash zarur.", howTo: "1. Bahor-kuz revaktsinatsiya\n2. Sigirlarni quruq davrda emlash", expertContact: "+998 71 200 88 66", svgType: "premium_cow_vaccine" }
+    ru: {
+        appTitle: "VILLAGER",
+        welcome: "Здравствуйте, фермер!",
+        animalQuestion: "С каким животным у вас проблема?",
+        problemQuestion: "Тип проблемы?",
+        detailedQuestion: "Опишите проблему подробно",
+        optionFeed: "🌾 Проблемы с питанием",
+        optionGrowth: "📉 Медленный рост",
+        optionVaccine: "💉 Вакцинация / болезни",
+        next: "Продолжить",
+        back: "Назад",
+        restart: "Новая проблема",
+        loading: "🤖 AI анализирует...",
+        contact: "Связаться с экспертами",
+        whatToDo: "Что делать?",
+        howToDo: "Как сделать?",
+        home: "Главная",
+        footer: "Традиционные знания и современные технологии",
+        variants: [
+            "🥚 Ухудшение качества яиц",
+            "🍂 Выпадение перьев",
+            "🦠 Затрудненное дыхание",
+            "📉 Потеря аппетита",
+            "🦵 Опухоль ног",
+            "💩 Диарея",
+            "🧠 Нервные симптомы",
+            "🐛 Паразиты/вши",
+            "🏠 Неправильный уход",
+            "✍️ Другое (напишите сами)"
+        ]
     },
-    "qo'y-echkilar": {
-        "oziqlanishdagi muammo": { title: "🐑 Mineral tangislik", advice: "Lizunets tuzi va mis, kobalt, sink qo‘shimchalari bering.", howTo: "1. Kunlik 0.3 kg aralash ozuva\n2. Yalovli yaylov", expertContact: "Qo‘ychilik ilmiy markazi: +998 66 234 77 88", svgType: "premium_sheep" },
-        "O'sishda ortda qolish": { title: "📉 Qo‘zilar ozib ketdi", advice: "Parazitar invaziyaga tahlil qiling. Ivermektin preparatlari.", howTo: "1. 3 marta degelmintizatsiya\n2. Issiqxona boshpana", expertContact: "Mobil veterinar 90 123 45 67", svgType: "premium_sheep_growth" },
-        "emlash": { title: "💉 Qo‘y-echki emlash", advice: "Chechak, enterotoksemiya, qo‘tir kasalligiga qarshi emlash majburiy.", howTo: "1. Bo‘g‘ozlikdan 30 kun oldin\n2. Har yili mart oyida", expertContact: "Emlash punkti 1115", svgType: "premium_sheep_vaccine" }
+    en: {
+        appTitle: "VILLAGER",
+        welcome: "Hello, farmer!",
+        animalQuestion: "Which animal has a problem?",
+        problemQuestion: "Type of problem?",
+        detailedQuestion: "Describe the problem in detail",
+        optionFeed: "🌾 Nutrition problem",
+        optionGrowth: "📉 Slow growth",
+        optionVaccine: "💉 Vaccination / diseases",
+        next: "Continue",
+        back: "Back",
+        restart: "New problem",
+        loading: "🤖 AI is analyzing...",
+        contact: "Contact experts",
+        whatToDo: "What to do?",
+        howToDo: "How to do it?",
+        home: "Home",
+        footer: "Traditional knowledge and modern technology",
+        variants: [
+            "🥚 Poor egg quality",
+            "🍂 Feather loss",
+            "🦠 Difficulty breathing",
+            "📉 Loss of appetite",
+            "🦵 Leg swelling",
+            "💩 Diarrhea",
+            "🧠 Nervous symptoms",
+            "🐛 Parasites/lice",
+            "🏠 Improper care",
+            "✍️ Other (write yourself)"
+        ]
     }
 };
 
+let currentLang = "uz";
 let state = {
-    step: 1,          // 1: animal, 2: problem, 3: custom question, 4: result
+    step: 1,
     animal: null,
     problem: null,
-    detailedIssue: null, // 3-savolga javob (variant yoki qo'lda yozilgan)
-    solution: null
+    detailedIssue: null,
+    solution: null,
+    loading: false
 };
 
+// ========== DOM ELEMENTLARI ==========
 const appDiv = document.getElementById("app");
+const contentDiv = document.getElementById("content");
+const loadingContainer = document.getElementById("loadingContainer");
 const mainMenu = document.getElementById("mainMenu");
 const homeBtn = document.getElementById("homeBtn");
+const langBtn = document.getElementById("langBtn");
+const themeBtn = document.getElementById("themeBtn");
+const languageMenu = document.getElementById("languageMenu");
+
+// ========== TEMA FUNKSIYALARI ==========
+function initTheme() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.body.setAttribute("data-theme", savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.body.getAttribute("data-theme");
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    document.body.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const icon = themeBtn.querySelector("i");
+    if (theme === "dark") {
+        icon.className = "fas fa-sun";
+    } else {
+        icon.className = "fas fa-moon";
+    }
+}
+
+// ========== TIL FUNKSIYALARI ==========
+function initLanguage() {
+    const savedLang = localStorage.getItem("language") || "uz";
+    currentLang = savedLang;
+    updateLanguageUI();
+}
+
+function updateLanguageUI() {
+    document.getElementById("currentLang").innerText = currentLang === "uz" ? "O'zbek" : (currentLang === "ru" ? "Русский" : "English");
+    render(); // Sahifani qayta render qilish
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("language", lang);
+    languageMenu.style.display = "none";
+    updateLanguageUI();
+}
+
+function t(key, fallback = "") {
+    return translations[currentLang]?.[key] || fallback || key;
+}
+
+// ========== REAL AI FUNKSIYASI ==========
+async function callGeminiAPI(prompt) {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
+        return null;
+    }
+    
+    try {
+        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: `${prompt}\n\nJavobni quyidagi tillarda bering: O'zbek, Rus, Ingliz. Har bir til uchun alohida bo'lim yarating.` }]
+                }],
+                generationConfig: { temperature: 0.7, maxOutputTokens: 1000 }
+            })
+        });
+        
+        const data = await response.json();
+        if (data.candidates && data.candidates[0]) {
+            return data.candidates[0].content.parts[0].text;
+        }
+        return null;
+    } catch (error) {
+        console.error("API xatosi:", error);
+        return null;
+    }
+}
+
+async function processAI() {
+    state.loading = true;
+    showLoading();
+    
+    const prompt = `
+Siz "VILLAGER" qishloq xo'jaligi ekspertisiz.
+Hayvon: ${state.animal}
+Muammo turi: ${state.problem}
+Batafsil: ${state.detailedIssue}
+
+3 tilda (O'zbek, Rus, Ingliz) quyidagi formatda javob bering:
+
+【O'zbek】
+📌 MUAMMO: 
+✅ NIMA QILISH KERAK:
+🛠 QANDAY QILINADI:
+📞 ALOQA:
+
+【Русский】
+📌 ПРОБЛЕМА:
+✅ ЧТО ДЕЛАТЬ:
+🛠 КАК СДЕЛАТЬ:
+📞 КОНТАКТЫ:
+
+【English】
+📌 PROBLEM:
+✅ WHAT TO DO:
+🛠 HOW TO DO:
+📞 CONTACT:
+`;
+    
+    const aiResponse = await callGeminiAPI(prompt);
+    
+    if (aiResponse) {
+        state.solution = {
+            title: "AI maslahati",
+            content: aiResponse,
+            svgType: "ai_premium"
+        };
+    } else {
+        state.solution = {
+            title: t("welcome", "🌾 AI Maslahat"),
+            content: getOfflineSolution(),
+            svgType: "ai_premium"
+        };
+    }
+    
+    state.loading = false;
+    state.step = 4;
+    hideLoading();
+    render();
+}
+
+function getOfflineSolution() {
+    const solutions = {
+        parrandalar: {
+            uz: "📌 MUAMMO: Parranda oziqlanishi\n✅ NIMA QILISH KERAK: Vitamin va mineral qo'shimchalar bering\n🛠 QANDAY QILINADI: 1. Ozuva sifatini tekshiring\n2. Premiks qo'shing\n📞 ALOQA: +998 71 200 55 11",
+            ru: "📌 ПРОБЛЕМА: Питание птицы\n✅ ЧТО ДЕЛАТЬ: Добавьте витамины и минералы\n🛠 КАК СДЕЛАТЬ: 1. Проверьте качество корма\n2. Добавьте премикс\n📞 КОНТАКТЫ: +998 71 200 55 11",
+            en: "📌 PROBLEM: Poultry nutrition\n✅ WHAT TO DO: Add vitamins and minerals\n🛠 HOW TO DO: 1. Check feed quality\n2. Add premix\n📞 CONTACT: +998 71 200 55 11"
+        }
+    };
+    return solutions[state.animal]?.[currentLang] || solutions.parrandalar[currentLang];
+}
+
+// ========== RENDER FUNKSIYALARI ==========
+function showLoading() {
+    loadingContainer.style.display = "block";
+    contentDiv.style.display = "none";
+}
+
+function hideLoading() {
+    loadingContainer.style.display = "none";
+    contentDiv.style.display = "block";
+}
 
 function render() {
+    if (state.loading) return;
+    
     if (state.step === 1) renderAnimal();
     else if (state.step === 2) renderProblem();
     else if (state.step === 3) renderDetailedQuestion();
-    else if (state.step === 4) renderFinalResult();
-
-    mainMenu.style.display = (state.step === 4) ? "block" : "none";
+    else if (state.step === 4) renderResult();
+    
+    mainMenu.style.display = (state.step === 4) ? "flex" : "none";
 }
 
 function renderAnimal() {
-    appDiv.innerHTML = `
+    contentDiv.innerHTML = `
         <div class="card">
-            <h1>🌾 Qishloqi</h1>
-            <div class="question">Qaysi turdagi hayvon bilan muammoingiz bor?</div>
+            <h1>🏘️ ${t("appTitle")}</h1>
+            <div class="question">${t("animalQuestion")}</div>
             <div class="options-grid">
-                <button class="option-btn" data-animal="parrandalar">🐔 Parrandalar</button>
-                <button class="option-btn" data-animal="qoramollar">🐄 Qoramollar</button>
-                <button class="option-btn" data-animal="qo'y-echkilar">🐑 Qo'y-echkilar</button>
+                <button class="option-btn" data-animal="parrandalar">🐔 ${currentLang === 'uz' ? 'Parrandalar' : (currentLang === 'ru' ? 'Птица' : 'Poultry')}</button>
+                <button class="option-btn" data-animal="qoramollar">🐄 ${currentLang === 'uz' ? 'Qoramollar' : (currentLang === 'ru' ? 'Крупный рогатый скот' : 'Cattle')}</button>
+                <button class="option-btn" data-animal="qo'y-echkilar">🐑 ${currentLang === 'uz' ? 'Qo\'y-echkilar' : (currentLang === 'ru' ? 'Овцы и козы' : 'Sheep & Goats')}</button>
             </div>
         </div>
     `;
+    
     document.querySelectorAll("[data-animal]").forEach(btn => {
         btn.addEventListener("click", (e) => {
             state.animal = e.currentTarget.getAttribute("data-animal");
@@ -60,18 +305,19 @@ function renderAnimal() {
 }
 
 function renderProblem() {
-    appDiv.innerHTML = `
+    contentDiv.innerHTML = `
         <div class="card">
-            <h2>${getAnimalIcon()} ${state.animal.toUpperCase()}</h2>
-            <div class="question">Muammo turi?</div>
+            <h2>${state.animal === "parrandalar" ? "🐔" : (state.animal === "qoramollar" ? "🐄" : "🐑")}</h2>
+            <div class="question">${t("problemQuestion")}</div>
             <div class="options-grid">
-                <button class="option-btn" data-problem="oziqlanishdagi muammo">🌾 Oziqlanish muammosi</button>
-                <button class="option-btn" data-problem="O'sishda ortda qolish">📉 O'sish sustligi</button>
-                <button class="option-btn" data-problem="emlash">💉 Emlash / kasalliklar</button>
+                <button class="option-btn" data-problem="oziqlanishdagi muammo">${t("optionFeed")}</button>
+                <button class="option-btn" data-problem="O'sishda ortda qolish">${t("optionGrowth")}</button>
+                <button class="option-btn" data-problem="emlash">${t("optionVaccine")}</button>
             </div>
-            <button class="restart-btn" id="resetStep2">⬅️ Ortga</button>
+            <button class="restart-btn" id="resetStep2">⬅️ ${t("back")}</button>
         </div>
     `;
+    
     document.querySelectorAll("[data-problem]").forEach(btn => {
         btn.addEventListener("click", (e) => {
             state.problem = e.currentTarget.getAttribute("data-problem");
@@ -79,127 +325,115 @@ function renderProblem() {
             render();
         });
     });
+    
     document.getElementById("resetStep2")?.addEventListener("click", () => {
         state.step = 1;
-        state.animal = null;
         render();
     });
 }
 
 function renderDetailedQuestion() {
-    // 10 ta variant + 10-chi qo'lda yozish
-    const variants = [
-        "🥚 Tuxum sifati yomonlashgan / kamaygan",
-        "🍂 Tuklari to'kilmoqda, pati xira",
-        "🦠 Nafas olish qiyin, aksa urish",
-        "📉 Ishtaha yo'qolgan, suv ichmaydi",
-        "🦵 Oyoqlarida shish, oqsoqlanish",
-        "💩 Ich ketish / rangli najas",
-        "🧠 Asabiy alomatlar (bosh aylanish)",
-        "🐛 Teri ostida parazitlar / bit",
-        "🏠 Noto'g'ri parvarish sharoiti (issiq-sovuq)",
-        "✍️ Boshqa (o‘zingiz yozing)"
-    ];
-    
+    const variants = t("variants");
     let optionsHtml = `<div class="options-grid">`;
     variants.forEach((v, idx) => {
         if (idx === 9) {
-            optionsHtml += `<div class="custom-option-btn" data-custom="true" data-val="custom">${v}</div>`;
+            optionsHtml += `<div class="custom-option-btn" data-custom="true">${v}</div>`;
         } else {
-            optionsHtml += `<button class="option-btn" data-val="${v.replace(/[^a-z]/gi, '').slice(0,20)}" data-fulltext="${v}">${v}</button>`;
+            optionsHtml += `<button class="option-btn" data-val="${idx}">${v}</button>`;
         }
     });
     optionsHtml += `</div><div id="customInputArea" style="display:none; margin-top:1rem;"></div>
-    <button class="restart-btn" id="backStep3">⬅️ Orqaga</button>`;
+    <button class="restart-btn" id="backStep3">⬅️ ${t("back")}</button>`;
     
-    appDiv.innerHTML = `<div class="card"><div class="question">❓ 3-savol: Muammoni aniq tasvirlang? (AI uchun tahlil)</div>${optionsHtml}</div>`;
+    contentDiv.innerHTML = `<div class="card"><div class="question">❓ ${t("detailedQuestion")}</div>${optionsHtml}</div>`;
     
     document.querySelectorAll(".option-btn:not([data-custom])").forEach(btn => {
         btn.addEventListener("click", (e) => {
-            state.detailedIssue = e.currentTarget.getAttribute("data-fulltext");
+            const idx = e.currentTarget.getAttribute("data-val");
+            state.detailedIssue = variants[idx];
             processAI();
         });
     });
+    
     const customBtn = document.querySelector("[data-custom='true']");
     if (customBtn) {
         customBtn.addEventListener("click", () => {
             const area = document.getElementById("customInputArea");
             area.style.display = "block";
-            area.innerHTML = `<div class="custom-input-group"><input type="text" id="customProblemInput" placeholder="Muammoingizni batafsil yozing..." autocomplete="off"><button id="submitCustom" class="next-btn">Yuborish</button></div>`;
+            area.innerHTML = `<div class="custom-input-group"><input type="text" id="customProblemInput" placeholder="${currentLang === 'uz' ? 'Muammoingizni yozing...' : (currentLang === 'ru' ? 'Напишите вашу проблему...' : 'Write your problem...')}" autocomplete="off"><button id="submitCustom" class="next-btn">${t("next")}</button></div>`;
             document.getElementById("submitCustom")?.addEventListener("click", () => {
                 const val = document.getElementById("customProblemInput").value.trim();
-                if (val) state.detailedIssue = val;
-                else state.detailedIssue = "Foydalanuvchi o‘z muammosini yozmagan, umumiy maslahat kerak";
+                state.detailedIssue = val || "Umumiy maslahat kerak";
                 processAI();
             });
         });
     }
+    
     document.getElementById("backStep3")?.addEventListener("click", () => {
         state.step = 2;
         render();
     });
 }
 
-function processAI() {
-    let baseSolution = knowledgeBase[state.animal]?.[state.problem];
-    if (!baseSolution) {
-        baseSolution = { title: "🌾 Maslahat", advice: "Mutaxassis bilan bog‘lanish tavsiya etiladi.", howTo: "1. Veterinarga murojaat\n2. Mahalliy fermerlar jamoati", expertContact: "Yordam liniyasi: 1180", svgType: "default_premium" };
-    }
-    // 3-savol tahlili asosida qo'shimcha tavsiya
-    let extraAdvice = `<br><br>🔍 Sizning qo‘shimcha ma'lumotingiz: “${state.detailedIssue}”. Shu asosda mutaxassislar aniq tashxis qo‘yishi mumkin.`;
-    state.solution = {
-        ...baseSolution,
-        advice: baseSolution.advice + extraAdvice,
-        detailed: state.detailedIssue
-    };
-    state.step = 4;
-    render();
-}
-
-function renderFinalResult() {
-    const sol = state.solution;
-    const svgHtml = getPremiumSvg(sol.svgType);
-    appDiv.innerHTML = `
+function renderResult() {
+    contentDiv.innerHTML = `
         <div class="card">
-            <h2>🤖 AI — QISHLOQI tahlili</h2>
+            <h2>🤖 VILLAGER AI</h2>
             <div class="info-box">
-                <h3>📌 ${sol.title}</h3>
-                <p><strong>✅ Nima qilish kerak?</strong><br>${sol.advice}</p>
+                <div style="white-space: pre-wrap; line-height: 1.6;">${state.solution.content}</div>
                 <div class="solution-img">
-                    <strong>🎨 Vaziyatni tushuntiruvchi rasm:</strong><br>
-                    ${svgHtml}
-                </div>
-                <p><strong>🛠 Qanday qilinadi?</strong><br>${sol.howTo.replace(/\n/g, '<br>')}</p>
-                <div class="contact-links">
-                    <strong>📞 Expertlar bilan aloqa:</strong><br>
-                    <a href="#">${sol.expertContact}</a>
+                    <strong>🎨 ${currentLang === 'uz' ? 'Vaziyat sxemasi' : (currentLang === 'ru' ? 'Схема ситуации' : 'Situation diagram')}</strong><br>
+                    ${getPremiumSvg()}
                 </div>
             </div>
-            <button class="restart-btn" id="finishRestart">➕ Yangi muammo</button>
+            <button class="restart-btn" id="finishRestart">➕ ${t("restart")}</button>
         </div>
     `;
+    
     document.getElementById("finishRestart")?.addEventListener("click", resetAll);
 }
 
 function resetAll() {
-    state = { step: 1, animal: null, problem: null, detailedIssue: null, solution: null };
-    mainMenu.style.display = "none";
+    state = { step: 1, animal: null, problem: null, detailedIssue: null, solution: null, loading: false };
     render();
 }
-homeBtn.addEventListener("click", () => { if (state.step === 4) resetAll(); else alert("Iltimos avval joriy jarayonni tugating"); });
 
-function getAnimalIcon() { return state.animal === "parrandalar" ? "🐔" : (state.animal === "qoramollar" ? "🐄" : "🐑"); }
-
-function getPremiumSvg(type) {
-    const svgMap = {
-        premium_chicken_feed: `<svg width="320" height="180" viewBox="0 0 400 200"><rect width="400" height="200" fill="#FDF3E0" rx="20"/><circle cx="90" cy="100" r="40" fill="#E69D3D"/><polygon points="90,50 110,90 70,90" fill="#F4B942"/><rect x="160" y="80" width="100" height="30" fill="#A56B2F" rx="10"/><text x="150" y="150" fill="#2C4B1E" font-weight="bold" font-size="14">Premium ozuva + Vitaminlar</text></svg>`,
-        premium_growth: `<svg width="320" height="180"><rect width="400" height="200" fill="#E6F7E6"/><path d="M80,120 L140,50 L200,120" stroke="#3A8C3A" stroke-width="5" fill="none"/><circle cx="140" cy="50" r="18" fill="#FFAA33"/><text x="100" y="160" fill="#1F5E1F" font-size="13">Oʻsish grafigi 📈</text></svg>`,
-        premium_vaccine: `<svg width="320" height="180"><rect width="400" height="200" fill="#F0F4FA"/><rect x="70" y="75" width="60" height="40" fill="#B0C4DE" rx="8"/><circle cx="100" cy="70" r="20" fill="#4682B4"/><text x="170" y="100" fill="#D32F2F" font-weight="bold">💉 Emlash kalendari</text></svg>`,
-        premium_cow: `<svg width="320" height="180"><rect width="400" height="200" fill="#EBD5B3"/><ellipse cx="100" cy="110" rx="45" ry="30" fill="#8B5E3C"/><rect x="180" y="80" width="90" height="35" fill="#C5853B" rx="10"/><text x="120" y="170" fill="#382110">Sifatli pichan & silos</text></svg>`,
-        premium_sheep: `<svg width="320" height="180"><rect width="400" height="200" fill="#FFF2DF"/><circle cx="90" cy="110" r="32" fill="#C2A15B"/><rect x="160" y="90" width="80" height="28" fill="#9B6A3C" rx="14"/><text x="110" y="165" fill="#4A2F1A">Mineral lizunets 🧂</text></svg>`,
-        default_premium: `<svg width="320" height="180"><rect width="400" height="200" fill="#F9F7EC"/><text x="80" y="100" fill="#2C6E2C" font-size="15" font-weight="bold">🌟 Qishloqi AI maslahati</text><text x="100" y="140" fill="#D4A017">Veterinar jamoasi</text></svg>`
-    };
-    return svgMap[type] || svgMap.default_premium;
+function getPremiumSvg() {
+    return `<svg width="100%" height="180" viewBox="0 0 400 180" preserveAspectRatio="xMidYMid meet">
+        <rect width="400" height="180" fill="url(#grad)" rx="20"/>
+        <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#d4a017;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#2d6a2d;stop-opacity:0.2"/>
+        </linearGradient></defs>
+        <text x="200" y="80" text-anchor="middle" fill="currentColor" font-size="14" font-weight="bold">🏘️ VILLAGER</text>
+        <text x="200" y="110" text-anchor="middle" fill="currentColor" font-size="12">${currentLang === 'uz' ? 'Qishloq donishmandi' : (currentLang === 'ru' ? 'Деревенский мудрец' : 'Village sage')}</text>
+        <text x="200" y="140" text-anchor="middle" fill="currentColor" font-size="11">⚘ ${currentLang === 'uz' ? 'An\'anaviy bilim' : (currentLang === 'ru' ? 'Традиционные знания' : 'Traditional wisdom')} ⚘</text>
+    </svg>`;
 }
 
+// ========== EVENT LISTENERS ==========
+homeBtn.addEventListener("click", () => {
+    if (state.step === 4) resetAll();
+});
+
+langBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    languageMenu.style.display = languageMenu.style.display === "none" ? "block" : "none";
+});
+
+themeBtn.addEventListener("click", toggleTheme);
+
+document.querySelectorAll("[data-lang]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        setLanguage(e.currentTarget.getAttribute("data-lang"));
+    });
+});
+
+document.addEventListener("click", () => {
+    languageMenu.style.display = "none";
+});
+
+// ========== BOSHLASH ==========
+initTheme();
+initLanguage();
 render();

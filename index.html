@@ -2,25 +2,58 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>QISHLOQI - Yosh fermerlar uchun AI yordamchi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>VILLAGER | Qishloq donishmandi</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body data-theme="light">
     <header>
-        <div class="logo">🌾 QISHLOQI</div>
-        <nav class="main-menu" id="mainMenu" style="display: none;">
-            <button id="homeBtn">🏠 Bosh sahifa</button>
-        </nav>
+        <div class="logo">
+            <span class="logo-icon">🏘️</span>
+            <span class="logo-text">VILLAGER</span>
+            <span class="logo-subtitle">qishloq donishmandi</span>
+        </div>
+        
+        <div class="header-controls">
+            <button class="lang-btn" id="langBtn">
+                <i class="fas fa-globe"></i>
+                <span id="currentLang">O'zbek</span>
+            </button>
+            <button class="theme-btn" id="themeBtn">
+                <i class="fas fa-moon"></i>
+            </button>
+            <nav class="main-menu" id="mainMenu" style="display: none;">
+                <button id="homeBtn" class="home-btn">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="home">Bosh sahifa</span>
+                </button>
+            </nav>
+        </div>
     </header>
-    
+
     <main id="app">
-        <!-- Dinamik kontent shu yerga yuklanadi -->
+        <div class="loading-container" id="loadingContainer" style="display: none;">
+            <div class="national-spinner">
+                <div class="spinner-pattern"></div>
+            </div>
+            <p id="loadingText">🤖 AI tahlil qilmoqda...</p>
+        </div>
+        <div id="content"></div>
     </main>
 
     <footer>
-        <p>© 2026 QISHLOQI - Yosh fermerlar uchun aqlli yordamchi</p>
+        <div class="footer-pattern"></div>
+        <p>🌾 VILLAGER — <span data-i18n="footer">An'anaviy bilim va zamonaviy texnologiya</span></p>
+        <div class="national-symbols">⚘ 𓋲 ⚘</div>
     </footer>
+
+    <div class="language-menu" id="languageMenu" style="display: none;">
+        <button data-lang="uz">🇺🇿 O'zbekcha</button>
+        <button data-lang="ru">🇷🇺 Русский</button>
+        <button data-lang="en">🇬🇧 English</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
