@@ -41,7 +41,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Milliy naqshlar */
 body::before {
     content: '';
     position: fixed;
@@ -83,6 +82,11 @@ header {
     animation: gentleFloat 3s ease-in-out infinite;
 }
 
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
 .logo-text {
     font-size: 1.5rem;
     font-weight: 800;
@@ -106,7 +110,7 @@ header {
     flex-wrap: wrap;
 }
 
-.lang-btn, .theme-btn, .home-btn {
+.lang-btn, .theme-btn, .history-btn, .home-btn {
     background: linear-gradient(135deg, var(--accent-color), var(--accent-gold));
     border: none;
     padding: 0.6rem 1.2rem;
@@ -120,7 +124,7 @@ header {
     transition: all 0.3s ease;
 }
 
-.lang-btn:hover, .theme-btn:hover, .home-btn:hover {
+.lang-btn:hover, .theme-btn:hover, .history-btn:hover, .home-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(212, 160, 23, 0.4);
 }
@@ -162,7 +166,6 @@ main {
     min-height: 70vh;
 }
 
-/* Card dizayni - milliy uslub */
 .card {
     background: var(--bg-card);
     backdrop-filter: blur(10px);
@@ -172,21 +175,22 @@ main {
     border: 1px solid var(--border-color);
     transition: transform 0.3s ease;
     position: relative;
-    overflow: hidden;
+    animation: fadeSlideUp 0.5s ease-out;
 }
 
-.card::before {
-    content: '⚘';
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 3rem;
-    opacity: 0.1;
-    font-family: serif;
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
 }
 
 h1 {
@@ -253,7 +257,6 @@ h1 {
     box-shadow: 0 6px 20px rgba(45, 106, 45, 0.4);
 }
 
-/* Natija sahifasi */
 .info-box {
     background: linear-gradient(145deg, rgba(255,248,235,0.5), rgba(255,240,220,0.3));
     border-radius: 32px;
@@ -262,12 +265,125 @@ h1 {
     border-left: 8px solid var(--accent-gold);
 }
 
-.solution-img {
+.checklist-container {
     background: rgba(212, 160, 23, 0.1);
     border-radius: 24px;
     padding: 1.5rem;
-    text-align: center;
     margin: 1.5rem 0;
+}
+
+.checklist-container h3 {
+    margin-bottom: 1rem;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: rgba(255,255,245,0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.checklist-item:hover {
+    background: rgba(212, 160, 23, 0.2);
+    transform: translateX(5px);
+}
+
+.checklist-item input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--accent-green);
+}
+
+.checklist-item span {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.checklist-item input:checked + span {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.progress-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.progress-percent {
+    font-weight: bold;
+    min-width: 45px;
+    color: var(--accent-gold);
+}
+
+.small-btn {
+    background: var(--accent-gold);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1a2a1f;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.small-btn:hover {
+    transform: translateY(-2px);
+    background: var(--accent-color);
+    color: white;
+}
+
+.save-progress-btn {
+    background: linear-gradient(135deg, #2d6a2d, #1f4f1f);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.save-progress-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(45, 106, 45, 0.4);
 }
 
 .contact-links {
@@ -313,7 +429,6 @@ footer {
     opacity: 0.6;
 }
 
-/* Loading spinner - milliy uslub */
 .loading-container {
     text-align: center;
     padding: 3rem;
@@ -335,21 +450,112 @@ footer {
     animation: spin 1s linear infinite;
 }
 
-.spinner-pattern::before {
-    content: '⚘';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-}
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* Mobile responsive */
+.history-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-content {
+    background: var(--bg-card);
+    border-radius: 32px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeSlideUp 0.3s ease;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-header h3 {
+    color: var(--accent-gold);
+}
+
+#closeHistoryBtn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.history-item {
+    background: rgba(212, 160, 23, 0.1);
+    border-radius: 16px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(212, 160, 23, 0.2);
+    transform: translateX(5px);
+}
+
+.history-item-title {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.history-item-date {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.history-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.danger-btn {
+    background: #c0392b;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.close-modal-btn {
+    background: var(--accent-green);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 40px;
+    color: white;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -381,45 +587,4 @@ footer {
         padding: 0.8rem;
         font-size: 0.9rem;
     }
-    
-    .info-box {
-        padding: 1rem;
-    }
-    
-    .solution-img svg {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-text {
-        font-size: 1.2rem;
-    }
-    
-    .header-controls {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .lang-btn, .theme-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
-    }
-}
-
-/* Animations */
-@keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
-    animation: fadeSlideUp 0.5s ease-out;
 }
